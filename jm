@@ -1,0 +1,27 @@
+#!/bin/sh
+
+ACTION=$1
+JAIL_NAME=$2
+JM_DIR=`cat ./.jm.config | grep JM_PATH | awk -F '=' '{print $2}'`
+
+case $ACTION in
+	create)
+		./lib/create_jail.sh $JM_DIR $JAIL_NAME
+		;;
+	delete)
+		./lib/delete_jail.sh $JM_DIR $JAIL_NAME
+		;;
+	list)
+		echo list
+		;;
+	start)
+		echo start
+		;;
+	stop)
+		echo stop
+		;;
+	*)
+		echo "invalid action"
+		;;
+esac
+
