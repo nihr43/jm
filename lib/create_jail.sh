@@ -1,7 +1,10 @@
 #!/bin/sh
 
+set -e
 JM_DIR="$1"
 JAIL_NAME="$2"
+
+./lib/safe_input.sh $2
 
 
 if [ ! -e $JM_DIR/.base.txz ]; then
