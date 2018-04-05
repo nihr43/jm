@@ -2,6 +2,25 @@
 A Jail Manager that values simplicity, scalability, and the unix philosophy.
 
 
+**jm** does
+
+  - create jails
+  - start jails
+  - list jails
+  - stop jails
+  - delete jails
+ 
+ 
+ **jm** does not
+ 
+  - rely on a basejail
+  - interact with zfs
+  - clone jails
+  - migrate jails
+  - provision services
+
+
+
 Why?
 ------
   You're probably thinking "come on, another jail management utility?".  We already have iocage, qjail, ezjail, and more...  Well, none of these quite do it for me.  Warning, opinions follow...
@@ -20,4 +39,4 @@ Why?
 
 Bottom Line
 ------
-  **jm** is ultmately intended to be a small tool that is good at one thing.  Creating jails.  It's really just a slight abstraction of jail and jls.
+  **jm** is ultmately intended to be a small tool that is good at one thing.
