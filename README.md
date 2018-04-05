@@ -14,6 +14,10 @@ Why?
   So what does jm do that is different?  
   
   - jails are independent.  they share only the kernel.  freebsd-update works.  cold migration works if you need it to.  no funny-business.
-  - storage is irrelevant.  Either you or your storage team make the decisions here.  Not me.
+  - storage is irrelevant.  Either you or your storage team make the decisions here.  Not **jm**.
   - networking is still weird.  no raw sockets.  this means no dhcp or ping.  However, I do plan to write something to dynamically allocate IPs from a configured range.  This would be a small step towards ddns.
   - intended for use with config management.  There are no plans for cloning, imaging, migration, snapshotting; nothing.  There are better tools out there for service deployment and configuration management than I'll ever write.  If you haven't already, learn them.
+
+Bottom Line
+------
+  **jm** is ultmately intended to be a small tool that is good at one thing.  Creating jails.  It's really just a slight abstraction of jail and jls.
