@@ -24,7 +24,7 @@ tar xpvf $JM_DIR/.base.txz -C $JM_DIR/$JAIL_NAME/$JAIL_NAME
 
 
 cp ./jail.conf $JM_DIR/$JAIL_NAME/jail.conf
-echo 'path = "'$JM_DIR'/$name";' >> $JM_DIR/$JAIL_NAME/jail.conf
+echo 'path = "'$JM_DIR/$JAIL_NAME'/$name";' >> $JM_DIR/$JAIL_NAME/jail.conf
 
 echo "$JAIL_NAME	{host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> $JM_DIR/$JAIL_NAME/jail.conf
 
