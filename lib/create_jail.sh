@@ -18,11 +18,22 @@ fi
 
 
 echo "creating $JAIL_NAME"
-
 mkdir $JM_DIR/$JAIL_NAME
-tar xpvf $JM_DIR/.base.txz -C $JM_DIR/$JAIL_NAME
+mkdir $JM_DIR/$JAIL_NAME/$JAIL_NAME
+tar xpvf $JM_DIR/.base.txz -C $JM_DIR/$JAIL_NAME/$JAIL_NAME
 
-echo "$JAIL_NAME	{host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> /etc/jail.conf
+
+cp ./jail.conf $JM_DIR/$JAIL_NAME/jail.conf
+echo 'path = "'$JM_DIR'/$name";' >> $JM_DIR/$JAIL_NAME/jail.conf
+
+echo "$JAIL_NAME	{host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> $JM_DIR/$JAIL_NAME/jail.conf
+
+
+
+
+
+
+## templating stuff
 
 #cp $BASE_DIR/.templates/default/etc/rc.conf $BASE_DIR/$JAIL_NAME/etc/rc.conf
 #cp $BASE_DIR/.templates/default/etc/resolv.conf $BASE_DIR/$JAIL_NAME/etc/resolv.conf
