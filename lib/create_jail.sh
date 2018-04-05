@@ -22,6 +22,8 @@ echo "creating $JAIL_NAME"
 mkdir $JM_DIR/$JAIL_NAME
 tar xpvf $JM_DIR/.base.txz -C $JM_DIR/$JAIL_NAME
 
+echo "$JAIL_NAME	{host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> /etc/jail.conf
+
 #cp $BASE_DIR/.templates/default/etc/rc.conf $BASE_DIR/$JAIL_NAME/etc/rc.conf
 #cp $BASE_DIR/.templates/default/etc/resolv.conf $BASE_DIR/$JAIL_NAME/etc/resolv.conf
 #mkdir $BASE_DIR/$JAIL_NAME/root/.ssh

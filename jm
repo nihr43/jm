@@ -6,6 +6,11 @@ ACTION=$1
 JAIL_NAME=$2
 JM_DIR=`cat ./.jm.config | grep JM_PATH | awk -F '=' '{print $2}'`
 
+if [ ! -e /etc/jail.conf ]; then
+        cp ./.jail.conf.template /etc/jail.conf
+	echo 'path = "'$JM_DIR'/$name";' >> /etc/jail.conf
+fi
+
 
 case $ACTION in
 	create)
@@ -15,14 +20,17 @@ case $ACTION in
 		./lib/delete_jail.sh $JM_DIR $JAIL_NAME
 		;;
 	list)
-		./lib/list_jail.sh $JM_DIR
+		./lib/list_jail.sh $JM_DIR | column -t
 		;;
 	start)
-		echo start
+		./lib/start_jail.sh $JAIL_NAME
 		;;
 	stop)
-		echo stop
+		./lib/stop_jail.sh $JAIL_NAME
 		;;
+	restart)
+                ./lib/restart_jail.sh $JAIL_NAME
+                ;;
 	*)
 		echo "invalid action"
 		;;

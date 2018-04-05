@@ -12,6 +12,7 @@ if [ ! -e $JM_DIR/$JAIL_NAME ]; then
 fi
 
 
+service jail stop $JAIL_NAME
 echo "deleting $JAIL_NAME"
 
 chflags -R noschg $JM_DIR/$JAIL_NAME

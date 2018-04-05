@@ -3,7 +3,7 @@
 JAIL_NAME=$1
 
 case $JAIL_NAME in
-        .)
+        *.*)
                 echo ". off-limits"
                 return 1
                 ;;

@@ -1,0 +1,7 @@
+exec.start = "/bin/sh /etc/rc";
+exec.stop = "/bin/sh /etc/rc.shutdown";
+exec.clean;
+mount.devfs;
+mount.fdescfs;
+mount.procfs;
+allow.raw_sockets = 0;
