@@ -1,4 +1,4 @@
-util::bootstrap_jail () {
+util::bootstrap () {
 ## templating stuff
 
 #cp $BASE_DIR/.templates/default/etc/rc.conf $BASE_DIR/$JAIL_NAME/etc/rc.conf
@@ -11,4 +11,22 @@ util::bootstrap_jail () {
 
 util::checkenv () {
   echo "checking env stub"
+}
+
+util::update_conf () {
+  local $ACTION=$1
+  local $JAIL_NAME=$2
+
+  case $ACTION in
+    create)
+      [ grep -q /etc/jail.conf "^$JAIL_NAME	" ] && { exit 1 ; } || {
+        echo "$JAIL_NAME      {host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> /etc/jail.conf
+      }
+      ;;
+    delete)
+      [ grep -q /etc/jail.conf "^$JAIL_NAME	" ] || { exit 1 ; } && {
+        sed -i "/^$JAIL_NAME	/d" /etc/jail.conf
+      }
+      ;;
+  esac
 }
