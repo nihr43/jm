@@ -7,6 +7,7 @@ JM_DIR=`cat ./.jm.config | grep JM_PATH | awk -F '=' '{print $2}'`
 JM_LIB="./lib"
 
 . $JM_LIB/core
+. $JM_LIB/util
 
 case $ACTION in
 	create)
