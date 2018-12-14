@@ -12,3 +12,6 @@ jm's core funtionality is as follows:
  - restart
  - archive
  - restore
+ - vnet networking
+
+jm is written for FreeBSD-12.0 and higher.
