@@ -6,7 +6,7 @@ core::list () {
 
     if [ -z `jls | awk '{print $4}' | grep $i` ]; then
       echo -e "$i $IP Stopped"
-      else
+    else
       echo -e "$i $IP Running"
     fi
   done
