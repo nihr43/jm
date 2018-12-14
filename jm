@@ -1,33 +1,33 @@
 #!/bin/sh
 
-set -e
 
 ACTION=$1
 JAIL_NAME=$2
 JM_DIR=`cat ./.jm.config | grep JM_PATH | awk -F '=' '{print $2}'`
+JM_LIB="./lib"
 
+. $JM_LIB/core
 
 case $ACTION in
 	create)
-		./lib/create_jail.sh $JM_DIR $JAIL_NAME
+		core::create $JM_DIR $JAIL_NAME
 		;;
 	delete)
-		./lib/delete_jail.sh $JM_DIR $JAIL_NAME
+		core::delete $JM_DIR $JAIL_NAME
 		;;
 	list)
-		./lib/list_jail.sh $JM_DIR | column -t
+		core::list $JM_DIR | column -t
 		;;
 	start)
-		./lib/start_jail.sh $JM_DIR $JAIL_NAME
+		core::start $JM_DIR $JAIL_NAME
 		;;
 	stop)
-		./lib/stop_jail.sh $JM_DIR $JAIL_NAME
+		core::stop $JM_DIR $JAIL_NAME
 		;;
 	restart)
-                ./lib/restart_jail.sh $JAIL_NAME
+                core::restart $JAIL_NAME
                 ;;
 	*)
 		echo "invalid action"
 		;;
 esac
-

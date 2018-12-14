@@ -1,0 +1,60 @@
+#!/bin/sh
+
+core::list () {
+  for i in `ls -I $JM_DIR/`; do
+    IP=`cat $JM_DIR/$i/jail.conf | grep '#jm_managed' | grep '{host.hostname = "'$i'";' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
+
+    if [ -z `jls | awk '{print $4}' | grep $i` ]; then
+      echo -e "$i $IP Stopped"
+      else
+      echo -e "$i $IP Running"
+    fi
+  done
+}
+
+
+core::start () {
+  #echo `hostname` > $JAIL_DIR/$JAIL_NAME/lock
+  jail -f $JAIL_DIR/$JAIL_NAME/jail.conf -c $JAIL_NAME
+}
+
+
+core::stop () {
+  service jail stop $JAIL_NAME
+  #jail -f $JAIL_DIR/$JAIL_NAME/.jail.conf -r $JAIL_NAME
+  #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/dev/fd
+  #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/dev
+  #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/proc
+  #rm $JAIL_DIR/$JAIL_NAME/lock
+}
+
+
+core::create () {
+  [ -e $JM_DIR/$JAIL_NAME ] && {
+    echo "$JAIL_NAME exists"
+    exit 1
+  }
+
+  echo "creating $JAIL_NAME"
+  mkdir $JM_DIR/$JAIL_NAME
+  tar xpvf $JM_DIR/.base.txz -C $JM_DIR/$JAIL_NAME/$JAIL_NAME
+
+
+cp ./jail.conf $JM_DIR/$JAIL_NAME/jail.conf
+echo 'path = "'$JM_DIR/$JAIL_NAME'/$name";' >> $JM_DIR/$JAIL_NAME/jail.conf
+
+echo "$JAIL_NAME	{host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> $JM_DIR/$JAIL_NAME/jail.conf
+
+
+
+
+
+
+## templating stuff
+
+#cp $BASE_DIR/.templates/default/etc/rc.conf $BASE_DIR/$JAIL_NAME/etc/rc.conf
+#cp $BASE_DIR/.templates/default/etc/resolv.conf $BASE_DIR/$JAIL_NAME/etc/resolv.conf
+#mkdir $BASE_DIR/$JAIL_NAME/root/.ssh
+#cp $BASE_DIR/.templates/default/root/.ssh/authorized_keys $BASE_DIR/$JAIL_NAME/root/.ssh/authorized_keys
+#cp $BASE_DIR/.templates/default/etc/freebsd-update.conf $BASE_DIR/$JAIL_NAME/etc/freebsd-update.conf
+#cp $BASE_DIR/.templates/default/etc/ssh/sshd_config $BASE_DIR/$JAIL_NAME/etc/ssh/sshd_config
