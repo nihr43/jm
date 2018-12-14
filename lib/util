@@ -1,0 +1,14 @@
+util::bootstrap_jail () {
+## templating stuff
+
+#cp $BASE_DIR/.templates/default/etc/rc.conf $BASE_DIR/$JAIL_NAME/etc/rc.conf
+#cp $BASE_DIR/.templates/default/etc/resolv.conf $BASE_DIR/$JAIL_NAME/etc/resolv.conf
+#mkdir $BASE_DIR/$JAIL_NAME/root/.ssh
+#cp $BASE_DIR/.templates/default/root/.ssh/authorized_keys $BASE_DIR/$JAIL_NAME/root/.ssh/authorized_keys
+#cp $BASE_DIR/.templates/default/etc/freebsd-update.conf $BASE_DIR/$JAIL_NAME/etc/freebsd-update.conf
+#cp $BASE_DIR/.templates/default/etc/ssh/sshd_config $BASE_DIR/$JAIL_NAME/etc/ssh/sshd_config
+}
+
+util::checkenv () {
+  echo "checking env stub"
+}
