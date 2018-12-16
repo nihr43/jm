@@ -3,11 +3,11 @@
 core::list () {
   for i in `ls $JM_DIR/`; do
 #    IP=`cat $JM_DIR/$i/jail.conf | grep '#jm_managed' | grep '{host.hostname = "'$i'";' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
-    if [ -z "`jls | sed 1d | grep -o $i`" ]; then
+    [ jls name | grep -q ^$i$` ] || {
       echo -e "$i Stopped"
-    else
+    } && {
       echo -e "$i Running"
-    fi
+    }
   done
 }
 
