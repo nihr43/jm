@@ -33,7 +33,7 @@ util::update_conf () {
     create)
       grep -q "^$JAIL_NAME {" /etc/jail.conf && { exit 1 ; } || {
         ID=`util::next_id`
-        echo "$JAIL_NAME {$if = \"$ID\"; vnet; vnet.interface = \"epair${if}b\"; exec.prestart = \"ifconfig epair${if} create\"; exec.prestart += \"ifconfig epair${if}a mtu 9000 up\"; exec.prestart += \"ifconfig epair${if}b mtu 9000 up\"; exec.prestart += \"ifconfig bridge0 addm epair${if}a\"; exec.start += \"/sbin/ifconfig epair${if}b name vnet0 up\"; exec.start += \"/sbin/dhclient vnet0\"; exec.poststop = \"ifconfig epair${if}a destroy\"; persist;} #jm_managed" >> /etc/jail.conf
+        echo "$JAIL_NAME {\$if = \"$ID\"; vnet; vnet.interface = \"epair\${if}b\"; exec.prestart = \"ifconfig epair\${if} create\"; exec.prestart += \"ifconfig epair\${if}a mtu 9000 up\"; exec.prestart += \"ifconfig epair\${if}b mtu 9000 up\"; exec.prestart += \"ifconfig bridge0 addm epair\${if}a\"; exec.start += \"/sbin/ifconfig epair\${if}b name vnet0 up\"; exec.start += \"/sbin/dhclient vnet0\"; exec.poststop = \"ifconfig epair\${if}a destroy\"; persist;} #jm_managed" >> /etc/jail.conf
       }
       ;;
     delete)
