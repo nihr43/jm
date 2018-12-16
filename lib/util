@@ -19,12 +19,12 @@ util::update_conf () {
 
   case $ACTION in
     create)
-      [[ grep -q "^$JAIL_NAME	" /etc/jail.conf ]] && { exit 1 ; } || {
+      grep -q "^$JAIL_NAME	" /etc/jail.conf && { exit 1 ; } || {
         echo "$JAIL_NAME      {host.hostname = \"$JAIL_NAME\"; ip4.addr += \"bridge0|192.168.11.50/24\";} #jm_managed" >> /etc/jail.conf
       }
       ;;
     delete)
-      [[ grep -q "^$JAIL_NAME	" /etc/jail.conf ]] || { exit 1 ; } && {
+      grep -q "^$JAIL_NAME	" /etc/jail.conf || { exit 1 ; } && {
         sed -i "/^$JAIL_NAME	/d" /etc/jail.conf
       }
       ;;
