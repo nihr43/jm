@@ -25,7 +25,7 @@ util::update_conf () {
       ;;
     delete)
       grep -q "^$JAIL_NAME {" /etc/jail.conf || { exit 1 ; } && {
-        sed -i "/^$JAIL_NAME {/ d" /etc/jail.conf
+        sed -i -e "/^$JAIL_NAME {/ d" /etc/jail.conf
       }
       ;;
   esac
