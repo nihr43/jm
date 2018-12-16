@@ -56,13 +56,10 @@ core::delete () {
     exit 1
   }
 
-  echo -n "deleting $JAIL_NAME ."
-  service jail stop $JAIL_NAME
-  echo -n "."
+  echo -n "deleting $JAIL_NAME"
+  service jail onestop $JAIL_NAME
 
   chflags -R noschg $JM_DIR/$JAIL_NAME
-  echo -n "."
   rm -rf $JM_DIR/$JAIL_NAME
-  echo "."
   util::update_conf delete $JAIL_NAME
 }
