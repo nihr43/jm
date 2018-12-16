@@ -45,7 +45,7 @@ core::create () {
   echo "creating $JAIL_NAME"
   mkdir $JM_DIR/$JAIL_NAME
   tar xpvf $JM_DIR/$IMAGE -C $JM_DIR/$JAIL_NAME
-#  util::update_conf create $JAIL_NAME
+  util::update_conf create $JAIL_NAME
 #  util::bootstrap $JAIL_NAME
 }
 
