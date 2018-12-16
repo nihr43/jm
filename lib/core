@@ -8,7 +8,6 @@ core::list () {
     } || {
       echo -en "$i Running "
     }
-    du -hs $JM_DIR/$i | awk '{print $1}'
   done
 }
 
