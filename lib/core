@@ -47,7 +47,7 @@ core::create () {
   tar xpvf $JM_DIR/$IMAGE -C $JM_DIR/$JAIL_NAME
   util::update_conf create $JAIL_NAME
 #  util::bootstrap $JAIL_NAME
-
+}
 
 core::delete () {
   [ -e $JM_DIR/$JAIL_NAME ] || {
