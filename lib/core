@@ -1,13 +1,13 @@
 #!/bin/sh
 
 core::list () {
-  for i in `ls -I $JM_DIR/`; do
+  for i in `ls $JM_DIR/`; do
 #    IP=`cat $JM_DIR/$i/jail.conf | grep '#jm_managed' | grep '{host.hostname = "'$i'";' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
 
-    if [ -z `jls | grep $i` ]; then
-      echo -e "$i $IP Stopped"
+    if [ -z `jls | sed 1d | grep $i` ]; then
+      echo -e "$i Stopped"
     else
-      echo -e "$i $IP Running"
+      echo -e "$i Running"
     fi
   done
 }
