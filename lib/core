@@ -13,14 +13,14 @@ core::list () {
 
 
 core::start () {
-  service jail start $JAIL_NAME
+  service jail onestart $JAIL_NAME
 #echo `hostname` > $JAIL_DIR/$JAIL_NAME/lock
 #  jail -f $JAIL_DIR/$JAIL_NAME/jail.conf -c $JAIL_NAME
 }
 
 
 core::stop () {
-  service jail stop $JAIL_NAME
+  service jail onestop $JAIL_NAME
   #jail -f $JAIL_DIR/$JAIL_NAME/.jail.conf -r $JAIL_NAME
   #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/dev/fd
   #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/dev
@@ -30,7 +30,7 @@ core::stop () {
 
 
 core::restart () {
-  service jail restart $JAIL_NAME
+  service jail onerestart $JAIL_NAME
 }
 
 
@@ -59,6 +59,6 @@ core::delete () {
   service jail onestop $JAIL_NAME
 
   chflags -R noschg $JM_DIR/$JAIL_NAME
-  rm -rf $JM_DIR/$JAIL_NAME
+  rm -rf $JM_DIR/$JAIL_NAME #TODO: not this
   util::update_conf delete $JAIL_NAME
 }

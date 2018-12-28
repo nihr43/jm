@@ -1,7 +1,7 @@
 ## jm
-##### A Jail Manager with a minimal feature set and a focus on simplicity
+##### A basic Jail Manager for VIMAGE jails
 
-jm is a FreeBSD jail manager written to provide a minimal viable feature set.  jm is intended to be used standalone, or to provide basic operations to a higher layer of resource managment.
+jm is a FreeBSD jail manager with a limited scope.  Unlike similar tools, jm does not manipulate host network or storage resources.
 
 jm's core funtionality is as follows:
  - create
@@ -12,6 +12,13 @@ jm's core funtionality is as follows:
  - restart
  - archive
  - restore
- - virtual networking
+
+jm was primarily intended to provide basic operations to some higher layer of management.  Therefore, operations like "bootstrap", "clone", "migrate" are not within jm's scope.
 
 jm is written for FreeBSD-12.0 and higher.
+
+Areas for improvement:
+ - error handling
+ - per-jail jail.conf files
+ - error handling
+ - basic network configuration ( dhcp, static, or classic )
