@@ -31,7 +31,7 @@ core::restart () {
 
 core::create () {
   IMAGE='.12.0-RELEASE-base.txz'
-#  util::checkenv
+  util::check_name $JAIL_NAME || exit 1
   [ -e $JM_DIR/$JAIL_NAME ] && {
     echo "$JAIL_NAME exists"
     exit 1
@@ -45,6 +45,7 @@ core::create () {
 }
 
 core::delete () {
+  util::check_name $JAIL_NAME || exit 1 # prevents removing silly like "$JM_DIR/../../ " , which the following WILL evauluate as 'exists'
   [ -e $JM_DIR/$JAIL_NAME ] || {
     echo "$JAIL_NAME does not exist"
     exit 1
