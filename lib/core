@@ -10,13 +10,11 @@ core::list () {
   done
 }
 
-
 core::start () {
   service jail onestart $JAIL_NAME
 #echo `hostname` > $JAIL_DIR/$JAIL_NAME/lock
 #  jail -f $JAIL_DIR/$JAIL_NAME/jail.conf -c $JAIL_NAME
 }
-
 
 core::stop () {
   service jail onestop $JAIL_NAME
@@ -27,11 +25,9 @@ core::stop () {
   #rm $JAIL_DIR/$JAIL_NAME/lock
 }
 
-
 core::restart () {
   service jail onerestart $JAIL_NAME
 }
-
 
 core::create () {
   IMAGE='.12.0-RELEASE-base.txz'
