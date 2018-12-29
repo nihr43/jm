@@ -1,8 +1,8 @@
 #!/bin/sh
 
 core::list () {
+  local JLS=`jls name`
   for i in `ls $JM_DIR/` ; do
-    local JLS=`jls name`
     [ -z `echo $JLS | grep ^$i$` ] && {
       echo -e "$i"
     } || {
