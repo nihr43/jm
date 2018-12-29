@@ -22,3 +22,4 @@ Areas for improvement:
  - per-jail jail.conf files
  - error handling
  - basic network configuration ( dhcp, static, or classic )
+ - persistent vnet mac addresses
