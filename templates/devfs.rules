@@ -1,0 +1,15 @@
+# Devices usually found in a jail.
+#
+[devfsrules_jail=4]
+add include $devfsrules_hide_all
+add include $devfsrules_unhide_basic
+add include $devfsrules_unhide_login
+add path fuse unhide
+add path zfs unhide
+add path 'bpf*' unhide
+add path vmm unhide
+add path vmm/* unhide
+add path vmm.io unhide
+add path vmm.io/* unhide
+add path tap* unhide
+add path nmdm* unhide
