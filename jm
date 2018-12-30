@@ -1,8 +1,8 @@
 #!/bin/sh
 
 
-ACTION=$1
-JAIL_NAME=$2
+ACTION="$1"
+JAIL_NAME="$2"
 JM_DIR=`cat ./.jm.config | grep JM_PATH | awk -F '=' '{print $2}'`
 JM_LIB="./lib"
 
