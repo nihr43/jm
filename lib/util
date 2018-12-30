@@ -15,7 +15,7 @@ util::checkenv() {
 
 # check for valid name
 util::check_name() {
-  local $NAME="$1"
+  local NAME="$1"
   echo $NAME | egrep -iqs "^[a-z0-9][.a-z0-9_-]{0,30}[a-z0-9]\$"
 }
 
@@ -33,8 +33,8 @@ util::next_id() {
 
 # update the main jail.conf
 util::update_conf() {
-  local $ACTION=$1
-  local $JAIL_NAME=$2
+  local ACTION=$1
+  local JAIL_NAME=$2
 
   case $ACTION in
     create)
