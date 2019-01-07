@@ -1,11 +1,12 @@
 #!/bin/sh
 
 core::list () {
+  local JLS="`jls name`"
   for i in `ls $JM_DIR/` ; do
-    [ -z `jls name | grep ^$i$` ] && {
-      echo -e "$i"
-    } || {
+    echo $JLS | grep -q "^$i$" && {
       echo -e "$i Running"
+    } || {
+      echo -e "$i"
     }
   done
 }
@@ -30,8 +31,9 @@ core::restart () {
 }
 
 core::create () {
-  IMAGE='.12.0-RELEASE-base.txz'
+  local IMAGE='.12.0-RELEASE-base.txz'
   util::check_name $JAIL_NAME || exit 1
+
   [ -e $JM_DIR/$JAIL_NAME ] && {
     echo "$JAIL_NAME exists"
     exit 1
@@ -41,20 +43,21 @@ core::create () {
   mkdir $JM_DIR/$JAIL_NAME
   tar xpf $JM_DIR/$IMAGE -C $JM_DIR/$JAIL_NAME
   util::update_conf create $JAIL_NAME
-#  util::bootstrap $JAIL_NAME
 }
 
 core::delete () {
-  util::check_name $JAIL_NAME || exit 1 # prevents removing silly like "$JM_DIR/../../ " , which the following WILL evauluate as 'exists'
+  util::check_name $JAIL_NAME || exit 1 # prevents removing silly things like "$JM_DIR/../../ " , which the following WILL evauluate as 'exists'
+
   [ -e $JM_DIR/$JAIL_NAME ] || {
     echo "$JAIL_NAME does not exist"
     exit 1
   }
 
-  echo -n "deleting $JAIL_NAME"
-  service jail onestop $JAIL_NAME
+  # if the jail is running, stop it
+  jls name | grep -q "^$JAIL_NAME$" && core::stop
 
+  echo -n "deleting $JAIL_NAME"
   chflags -R noschg $JM_DIR/$JAIL_NAME
-  rm -rf $JM_DIR/$JAIL_NAME #TODO: not this
+  rm -rf $JM_DIR/$JAIL_NAME
   util::update_conf delete $JAIL_NAME
 }
