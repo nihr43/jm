@@ -4,9 +4,9 @@ core::list () {
   local JLS="`jls name`"
   for i in `ls $JM_DIR/` ; do
     echo $JLS | grep -q "^$i$" && {
-      echo -e "$i Running"
+      echo "$i Running"
     } || {
-      echo -e "$i"
+      echo "$i"
     }
   done
 }
