@@ -36,11 +36,11 @@ case $ACTION in
         core::image_list
 	;;
       create)
-        local $JAIL="$3"
+        $JAIL="$3"
         core::image_create $JAIL
         ;;
       delete)
-        local $IMAGE="$3"
+        $IMAGE="$3"
         core::image_delete $IMAGE
         ;;
       *)
