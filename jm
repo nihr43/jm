@@ -11,7 +11,7 @@ JM_LIB="./lib"
 
 case $ACTION in
   create)
-    local IMAGE="$2"
+    IMAGE="$2"
     JAIL_NAME="$3"        
     core::create $IMAGE $JAIL_NAME
     ;;
