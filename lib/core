@@ -65,11 +65,11 @@ core::image_list() {
 }
 
 core::image_create() {
-  local $JAIL="$1"
+  local JAIL="$1"
   tar -c -f $JM_DIR/.images/$JAIL.tar $JM_DIR/$JAIL
 }
 
 core::image_delete() {
-  local $IMAGE="$1"
+  local IMAGE="$1"
   rm -rf $JM_DIR/.images/$IMAGE.tar
 }
