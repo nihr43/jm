@@ -19,7 +19,7 @@ case $ACTION in
     core::delete $JM_DIR $JAIL_NAME
     ;;
   list)
-    core::list $JM_DIR | column -t
+    core::list $JM_DIR | column -t | grep -v "^.images$"
     ;;
   start)
     core::start $JM_DIR $JAIL_NAME
