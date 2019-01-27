@@ -22,8 +22,9 @@ core::restart() {
   service jail onerestart $JAIL_NAME
 }
 
-core::create() {
-  local IMAGE=$1
+core::create () {
+  local IMAGE
+  $IMAGE=$1
   util::check_name $JAIL_NAME || exit 1
 
   [ -e $JM_DIR/$JAIL_NAME ] && {
