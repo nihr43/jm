@@ -34,20 +34,21 @@ case $ACTION in
     case $2 in
       list)
         core::image_list
-	break;;
+	;;
       create)
         local $JAIL="$3"
         core::image_create $JAIL
-        break;;
+        ;;
       delete)
         local $IMAGE="$3"
         core::image_delete $IMAGE
-        break;;
+        ;;
       *)
         echo "invalid image action"
 	exit 1
-	break;;
+	;;
       esac
+      ;;
   *)
     echo "invalid action"
     exit 1
