@@ -1,6 +1,6 @@
 #!/bin/sh
 
-core::list () {
+core::list() {
   for i in `ls $JM_DIR/` ; do
     jls name | grep -q "^$i$" && {
       echo "$i Running"
@@ -10,27 +10,20 @@ core::list () {
   done
 }
 
-core::start () {
+core::start() {
   service jail onestart $JAIL_NAME
-#echo `hostname` > $JAIL_DIR/$JAIL_NAME/lock
-#  jail -f $JAIL_DIR/$JAIL_NAME/jail.conf -c $JAIL_NAME
 }
 
-core::stop () {
+core::stop() {
   service jail onestop $JAIL_NAME
-  #jail -f $JAIL_DIR/$JAIL_NAME/.jail.conf -r $JAIL_NAME
-  #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/dev/fd
-  #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/dev
-  #umount $JAIL_DIR/$JAIL_NAME/$JAIL_NAME/proc
-  #rm $JAIL_DIR/$JAIL_NAME/lock
 }
 
-core::restart () {
+core::restart() {
   service jail onerestart $JAIL_NAME
 }
 
-core::create () {
-  local IMAGE='.12.0-RELEASE-base.txz'
+core::create() {
+  local IMAGE=$1
   util::check_name $JAIL_NAME || exit 1
 
   [ -e $JM_DIR/$JAIL_NAME ] && {
@@ -38,13 +31,18 @@ core::create () {
     exit 1
   }
 
+  [ -e $JM_DIR/.images/$IMAGE ] || {
+    echo "$IMAGE does not exist"
+    exit 1
+  }
+
   echo "creating $JAIL_NAME"
   mkdir $JM_DIR/$JAIL_NAME
-  tar xpf $JM_DIR/$IMAGE -C $JM_DIR/$JAIL_NAME
+  tar xpf $JM_DIR/.images/$IMAGE -C $JM_DIR/$JAIL_NAME
   util::update_conf create $JAIL_NAME
 }
 
-core::delete () {
+core::delete() {
   util::check_name $JAIL_NAME || exit 1 # prevents removing silly things like "$JM_DIR/../../ " , which the following WILL evauluate as 'exists'
 
   [ -e $JM_DIR/$JAIL_NAME ] || {
@@ -55,8 +53,22 @@ core::delete () {
   # if the jail is running, stop it
   jls name | grep -q "^$JAIL_NAME$" && core::stop
 
-  echo -n "deleting $JAIL_NAME"
+  echo "deleting $JAIL_NAME"
   chflags -R noschg $JM_DIR/$JAIL_NAME
   rm -rf $JM_DIR/$JAIL_NAME
   util::update_conf delete $JAIL_NAME
+}
+
+core::image_list() {
+  ls $JM_DIR/.images
+}
+
+core::image_create() {
+  local $JAIL="$1"
+  tar -c -f $JM_DIR/.images/$JAIL.tar $JM_DIR/$JAIL
+}
+
+core::image_delete() {
+  local $IMAGE="$1"
+  rm -rf $JM_DIR/.images/$IMAGE.tar
 }
