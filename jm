@@ -47,6 +47,7 @@ case $ACTION in
         echo "invalid image action"
 	exit 1
 	;;
+      esac
   *)
     echo "invalid action"
     exit 1
