@@ -3,54 +3,66 @@
 
 ACTION="$1"
 JAIL_NAME="$2"
-JM_DIR=`awk -F '=' '/^JM_PATH=/ {print $2}' ./.jm.config`
-JM_LIB="./lib"
 
-. $JM_LIB/core
-. $JM_LIB/util
+if [ -d /usr/local/lib/jm ] ; then
+  JM_LIB="/usr/local/lib/jm"
+else
+  JM_LIB="./lib"
+fi
+
+if [ -d /usr/local/etc/jm ] ; then
+  JM_CONF="/usr/local/etc/jm"
+else
+  JM_CONF="./lib"
+fi
+
+JM_DIR=`awk -F '=' '/^JM_PATH=/ {print $2}' ${JM_CONF}/jm.config`
+
+. ${JM_LIB}/core
+. ${JM_LIB}/util
 
 case $ACTION in
   create)
     IMAGE="$2"
     JAIL_NAME="$3"        
     core::create $IMAGE $JAIL_NAME
-    ;;
+  ;;
   delete)
     core::delete $JM_DIR $JAIL_NAME
-    ;;
+  ;;
   list)
     core::list $JM_DIR | column -t | grep -v "^.images$"
-    ;;
+  ;;
   start)
     core::start $JM_DIR $JAIL_NAME
-    ;;
+  ;;
   stop)
     core::stop $JM_DIR $JAIL_NAME
-    ;;
+  ;;
   restart)
     core::restart $JAIL_NAME
-    ;;
+  ;;
   image)
     case $2 in
       list)
         core::image_list
-	;;
+      ;;
       create)
         JAIL="$3"
         core::image_create $JAIL
-        ;;
+      ;;
       delete)
         IMAGE="$3"
         core::image_delete $IMAGE
-        ;;
+      ;;
       *)
         echo "invalid image action"
 	exit 1
-	;;
-      esac
       ;;
+      esac
+    ;;
   *)
     echo "invalid action"
     exit 1
-    ;;
+  ;;
 esac

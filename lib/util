@@ -28,15 +28,15 @@ util::update_conf() {
 
   case $ACTION in
     create)
-      grep -q "^$JAIL_NAME {" /etc/jail.conf && { exit 1 ; } || {
+      grep -q "^${JAIL_NAME} {" /etc/jail.conf && { exit 1 ; } || {
         local ID=`jot -r 1 0 32767` # yes this is hacky but good enough
         echo "$JAIL_NAME { \$if = \"$ID\"; vnet.interface = \"epair\${if}b\"; } #jm_managed" >> /etc/jail.conf
       }
-      ;;
+    ;;
     delete)
-      grep -q "^$JAIL_NAME {" /etc/jail.conf || { exit 1 ; } && {
-        sed -i -e "/^$JAIL_NAME {/ d" /etc/jail.conf
+      grep -q "^${JAIL_NAME} {" /etc/jail.conf || { exit 1 ; } && {
+        sed -i -e "/^${JAIL_NAME} {/ d" /etc/jail.conf
       }
-      ;;
+    ;;
   esac
 }

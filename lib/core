@@ -1,7 +1,7 @@
 #!/bin/sh
 
 core::list() {
-  for i in `ls $JM_DIR/` ; do
+  for i in `ls ${JM_DIR}/` ; do
     jls name | grep -q "^$i$" && {
       echo "$i Running"
     } || {
@@ -27,50 +27,50 @@ core::create () {
   IMAGE=$1
   util::check_name $JAIL_NAME || exit 1
 
-  [ -e $JM_DIR/$JAIL_NAME ] && {
+  [ -e ${JM_DIR}/{$JAIL_NAME} ] && {
     echo "$JAIL_NAME exists"
     exit 1
   }
 
-  [ -e $JM_DIR/.images/$IMAGE ] || {
+  [ -e ${JM_DIR}/.images/${IMAGE} ] || {
     echo "$IMAGE does not exist"
     exit 1
   }
 
   echo "creating $JAIL_NAME"
-  mkdir $JM_DIR/$JAIL_NAME
-  tar xpf $JM_DIR/.images/$IMAGE -C $JM_DIR/$JAIL_NAME
+  mkdir ${JM_DIR}/${JAIL_NAME}
+  tar xpf ${JM_DIR}/.images/${IMAGE} -C ${JM_DIR}/${JAIL_NAME}
   util::update_conf create $JAIL_NAME
 }
 
 core::delete() {
   util::check_name $JAIL_NAME || exit 1 # prevents removing silly things like "$JM_DIR/../../ " , which the following WILL evauluate as 'exists'
 
-  [ -e $JM_DIR/$JAIL_NAME ] || {
+  [ -e ${JM_DIR}/${JAIL_NAME} ] || {
     echo "$JAIL_NAME does not exist"
     exit 1
   }
 
   # if the jail is running, stop it
-  jls name | grep -q "^$JAIL_NAME$" && core::stop
+  jls name | grep -q "^${JAIL_NAME}$" && core::stop
 
   echo "deleting $JAIL_NAME"
-  chflags -R noschg $JM_DIR/$JAIL_NAME
-  rm -rf $JM_DIR/$JAIL_NAME
+  chflags -R noschg ${JM_DIR}/${JAIL_NAME}
+  rm -rf ${JM_DIR}/${JAIL_NAME}
   util::update_conf delete $JAIL_NAME
 }
 
 core::image_list() {
-  ls -lh  $JM_DIR/.images | awk '{print $9" "$5" "$6" "$7}' | column -t
+  ls -lh  ${JM_DIR}/.images | awk '{print $9" "$5" "$6" "$7}' | column -t
 }
 
 core::image_create() {
   local JAIL="$1"
-  cd $JM_DIR/$JAIL
-  tar -c -f $JM_DIR/.images/$JAIL.tar .
+  cd ${JM_DIR}/${JAIL}
+  tar -c -f ${JM_DIR}/.images/${JAIL}.tar .
 }
 
 core::image_delete() {
   local IMAGE="$1"
-  rm -rf $JM_DIR/.images/$IMAGE.tar
+  rm -rf ${JM_DIR}/.images/${IMAGE}.tar
 }
