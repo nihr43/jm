@@ -13,7 +13,7 @@ fi
 if [ -d /usr/local/etc/jm ] ; then
   JM_CONF="/usr/local/etc/jm"
 else
-  JM_CONF="./lib"
+  JM_CONF="./"
 fi
 
 JM_DIR=`awk -F '=' '/^JM_PATH=/ {print $2}' ${JM_CONF}/jm.config`
