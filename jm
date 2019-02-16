@@ -1,5 +1,6 @@
 #!/bin/sh
 
+hash grep
 
 ACTION="$1"
 JAIL_NAME="$2"
