@@ -61,7 +61,7 @@ core::delete() {
 }
 
 core::image_list() {
-  ls -lh  ${JM_DIR}/.images | awk '{print $9" "$5"}' | column -t
+  ls -lh  ${JM_DIR}/.images | awk '{print $9" "$5}' | column -t
 }
 
 core::image_create() {
