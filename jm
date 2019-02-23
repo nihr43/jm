@@ -1,6 +1,6 @@
 #!/bin/sh
 
-hash grep
+hash grep awk
 
 ACTION="$1"
 JAIL_NAME="$2"

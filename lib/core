@@ -44,7 +44,7 @@ core::create () {
 }
 
 core::delete() {
-  util::check_name $JAIL_NAME || exit 1 # prevents removing silly things like "$JM_DIR/../../ " , which the following WILL evauluate as 'exists'
+  util::check_name $JAIL_NAME || exit 1 # prevents removing silly things like "${JM_DIR}/../../ "
 
   [ -e ${JM_DIR}/${JAIL_NAME} ] || {
     echo "$JAIL_NAME does not exist"
@@ -61,7 +61,7 @@ core::delete() {
 }
 
 core::image_list() {
-  ls -lh  ${JM_DIR}/.images | awk '{print $9" "$5" "$6" "$7}' | column -t
+  ls -lh  ${JM_DIR}/.images | awk '{print $9" "$5"}' | column -t
 }
 
 core::image_create() {
