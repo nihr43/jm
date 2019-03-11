@@ -11,31 +11,26 @@ core::list() {
 }
 
 core::start() {
-  service jail onestart $JAIL_NAME
+  local _NAME="$1"
+  service jail onestart $_NAME
 }
 
 core::stop() {
-  service jail onestop $JAIL_NAME
+  local _NAME="$1"
+  service jail onestop $_NAME
 }
 
 core::restart() {
-  service jail onerestart $JAIL_NAME
+  local _NAME="$1"
+  service jail onerestart $_NAME
 }
 
-core::create () {
-  local IMAGE
-  IMAGE=$1
-  util::check_name $JAIL_NAME || exit 1
+core::create() {
+  local IMAGE="$1"
 
-  [ -e ${JM_DIR}/{$JAIL_NAME} ] && {
-    echo "$JAIL_NAME exists"
-    exit 1
-  }
-
-  [ -e ${JM_DIR}/.images/${IMAGE} ] || {
-    echo "$IMAGE does not exist"
-    exit 1
-  }
+  util::check_name $JAIL_NAME || util::handle_fatal "name $JAIL_NAME not valid"
+  [ -e ${JM_DIR}/{$JAIL_NAME} ] && util::handle_fatal "$JAIL_NAME exists"
+  [ -e ${JM_DIR}/.images/${IMAGE} ] || util::handle_fatal "$IMAGE does not exist"
 
   echo "creating $JAIL_NAME"
   mkdir ${JM_DIR}/${JAIL_NAME}
@@ -44,15 +39,11 @@ core::create () {
 }
 
 core::delete() {
-  util::check_name $JAIL_NAME || exit 1 # prevents removing silly things like "${JM_DIR}/../../ "
-
-  [ -e ${JM_DIR}/${JAIL_NAME} ] || {
-    echo "$JAIL_NAME does not exist"
-    exit 1
-  }
+  util::check_name $JAIL_NAME || util::handle_fatal "name $JAIL_NAME not valid"
+  [ -e ${JM_DIR}/${JAIL_NAME} ] || util::handle_fatal "$IMAGE does not exist"
 
   # if the jail is running, stop it
-  jls name | grep -q "^${JAIL_NAME}$" && core::stop
+  jls name | grep -q "^${JAIL_NAME}$" && core::stop $JAIL_NAME
 
   echo "deleting $JAIL_NAME"
   chflags -R noschg ${JM_DIR}/${JAIL_NAME}

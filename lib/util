@@ -11,6 +11,11 @@ util::bootstrap () {
 #cp $BASE_DIR/.templates/default/etc/ssh/sshd_config $BASE_DIR/$JAIL_NAME/etc/ssh/sshd_config
 }
 
+util::handle_fatal() {
+  echo "$1"
+  exit 1
+}
+
 util::checkenv() {
   echo "check env stub"
 }

@@ -35,10 +35,10 @@ case $ACTION in
     core::list $JM_DIR | column -t | grep -v "^.images$"
   ;;
   start)
-    core::start $JM_DIR $JAIL_NAME
+    core::start $JAIL_NAME
   ;;
   stop)
-    core::stop $JM_DIR $JAIL_NAME
+    core::stop $JAIL_NAME
   ;;
   restart)
     core::restart $JAIL_NAME
