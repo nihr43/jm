@@ -60,8 +60,14 @@ case $ACTION in
         echo "invalid image action"
 	exit 1
       ;;
-      esac
-    ;;
+    esac
+  ;;
+  startall)
+    core::startall
+  ;;
+  stopall)
+    core::stopall
+  ;;
   *)
     echo "invalid action"
     exit 1

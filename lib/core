@@ -65,3 +65,15 @@ core::image_delete() {
   local IMAGE="$1"
   rm -rf ${JM_DIR}/.images/${IMAGE}.tar
 }
+
+core::startall() {
+  for i in `ls ${JM_DIR}/` ; do
+    core::start $i
+  done
+}
+
+core::stopall() {
+  for i in `ls ${JM_DIR}/` ; do
+    core::stop $i
+  done
+}
